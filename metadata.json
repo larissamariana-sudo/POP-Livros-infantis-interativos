@@ -1,0 +1,6 @@
+{
+  "name": "Pop! - Livros Infantis Interativos",
+  "description": "Livros animados e interativos onde a criança faz escolhas e clica em elementos do cenário para descobrir surpresas e mudar o rumo da história.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

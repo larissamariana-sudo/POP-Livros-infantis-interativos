@@ -1,0 +1,25 @@
+{
+  "name": "Pop! - Livros Infantis Interativos",
+  "short_name": "Pop!",
+  "description": "Livros animados e interativos para crianças e jovens explorarem histórias, fazerem escolhas e interagirem com personagens e cenários mágicos.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FFFBEB",
+  "theme_color": "#F59E0B",
+  "categories": ["education", "books", "kids"],
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
