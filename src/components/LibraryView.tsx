@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Book, AgeGroup } from '../types';
 import { soundManager } from '../utils/audio';
-import { Sparkles, Play, Compass, Heart, BookOpen, Dog, Dumbbell, Wand2, GraduationCap, TreePine, ShieldCheck, Award } from 'lucide-react';
+import { Sparkles, Play, Compass, Heart, BookOpen, Dog, Dumbbell, Wand2, GraduationCap, TreePine, ShieldCheck, Award, Search } from 'lucide-react';
 import { UI_TRANSLATIONS } from '../i18n/translations';
 
 interface LibraryViewProps {
@@ -11,7 +11,6 @@ interface LibraryViewProps {
   onOpenSafetyInfo?: () => void;
   onEarnRewardBadge?: () => void;
   hasRewardBadge?: boolean;
-  onOpenPlayStoreKit?: () => void;
 }
 
 export const LibraryView: React.FC<LibraryViewProps> = ({
@@ -20,7 +19,6 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
   onOpenSafetyInfo,
   onEarnRewardBadge,
   hasRewardBadge = false,
-  onOpenPlayStoreKit,
 }) => {
   const [selectedAge, setSelectedAge] = useState<AgeGroup | 'all'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -28,6 +26,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
 
   const categories = [
     { id: 'all', label: t.allThemes, icon: BookOpen },
+    { id: 'mystery', label: t.themeMystery, icon: Search },
     { id: 'family', label: t.themeFamily, icon: Heart },
     { id: 'pets', label: t.themePets, icon: Dog },
     { id: 'sports', label: t.themeSports, icon: Dumbbell },
@@ -104,17 +103,6 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-2 shrink-0">
-          {onOpenPlayStoreKit && (
-            <button
-              onClick={onOpenPlayStoreKit}
-              id="btn-library-playstore-kit"
-              className="text-xs font-extrabold text-amber-900 hover:text-amber-950 bg-amber-100/90 hover:bg-amber-200 px-3.5 py-2 rounded-xl transition-colors cursor-pointer border border-amber-300 flex items-center space-x-1.5 shadow-xs"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-              <span>Kit Play Store (Ícone & Banner)</span>
-            </button>
-          )}
-
           {onOpenSafetyInfo && (
             <button
               onClick={onOpenSafetyInfo}
@@ -154,9 +142,9 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
             </p>
           </div>
 
-          {/* Age Filters */}
+          {/* Age Filters (Ages up to 10) */}
           <div className="flex items-center space-x-1.5 sm:space-x-2 bg-white p-1.5 rounded-2xl shadow-sm border border-amber-200 overflow-x-auto">
-            {(['all', '3-6', '7-10', '11-14'] as const).map((age) => (
+            {(['all', '3-6', '7-10'] as const).map((age) => (
               <button
                 key={age}
                 id={`filter-age-${age}`}
@@ -164,7 +152,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
                   soundManager.playPop(1.2);
                   setSelectedAge(age);
                 }}
-                className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all whitespace-nowrap ${
+                className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all whitespace-nowrap cursor-pointer ${
                   selectedAge === age
                     ? 'bg-amber-500 text-white shadow-md'
                     : 'text-slate-600 hover:bg-amber-50'

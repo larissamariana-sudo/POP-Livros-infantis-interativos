@@ -6,7 +6,7 @@ export const story31YoungBotanists: Book = {
   subtitle: 'A busca pela semente perdida do Ipê Dourado Ancestral e o herbário vivo da Mata Atlântica',
   coverImage: 'young-botanists-cover',
   coverEmoji: '🌿🔍',
-  ageGroup: '11-14',
+  ageGroup: '7-10',
   themeCategory: 'nature',
   themeColor: 'from-emerald-700 via-green-600 to-amber-500',
   tagline: 'Colete sementes crioulas nativas, classifique orquídeas raras na lupa de campo e regenere o solo da mata!',

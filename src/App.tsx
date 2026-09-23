@@ -11,7 +11,6 @@ import { StoryMapModal } from './components/StoryMapModal';
 import { ChildSafeAdModal } from './components/ChildSafeAdModal';
 import { PrivacyEcaModal } from './components/PrivacyEcaModal';
 import { ParentalGateModal } from './components/ParentalGateModal';
-import { PlayStoreKitModal } from './components/PlayStoreKitModal';
 import { adService, KidSafeSponsoredMessage } from './services/adService';
 import { ShieldCheck, Award, Sparkles } from 'lucide-react';
 
@@ -21,7 +20,6 @@ export default function App() {
   const [currentSceneId, setCurrentSceneId] = useState<string>(BOOKS_DATA[0].initialSceneId);
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
-  const [isPlayStoreKitOpen, setIsPlayStoreKitOpen] = useState(false);
 
   // Child safety, LGPD & Parental Gate state
   const [isSafetyModalOpen, setIsSafetyModalOpen] = useState(false);
@@ -137,11 +135,11 @@ export default function App() {
       return updated;
     });
 
-    // Check if auto-advance is linked
+    // Check if auto-advance is linked (gives ample time to read narrative message)
     if (element.eventResult?.autoAdvanceSceneId) {
       setTimeout(() => {
         handleGoToScene(element.eventResult!.autoAdvanceSceneId!);
-      }, 1800);
+      }, 7000);
     }
   };
 
@@ -248,7 +246,6 @@ export default function App() {
             }}
             onEarnRewardBadge={handleEarnRewardBadge}
             hasRewardBadge={hasRewardBadge}
-            onOpenPlayStoreKit={() => setIsPlayStoreKitOpen(true)}
           />
         ) : (
           <div className="space-y-6 sm:space-y-8">
@@ -310,12 +307,6 @@ export default function App() {
         onClose={() => setIsParentalGateOpen(false)}
       />
 
-      {/* Play Store Graphic Kit Modal (Icon 512x512, Banner 1024x500 & Screenshots) */}
-      <PlayStoreKitModal
-        isOpen={isPlayStoreKitOpen}
-        onClose={() => setIsPlayStoreKitOpen(false)}
-      />
-
       {/* Footer */}
       <footer className="w-full py-6 border-t border-amber-200/80 bg-white/60 backdrop-blur-xs text-center text-xs font-semibold text-slate-500 space-y-2">
         <p>
@@ -335,16 +326,7 @@ export default function App() {
             <span>Privacidade & LGPD (Art. 14) • ECA Digital</span>
           </button>
           <span>•</span>
-          <button
-            onClick={() => setIsPlayStoreKitOpen(true)}
-            id="btn-footer-playstore-kit"
-            className="text-amber-700 hover:text-amber-900 underline flex items-center space-x-1 cursor-pointer"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-500 inline" />
-            <span>Kit Google Play (Ícone & Banner)</span>
-          </button>
-          <span>•</span>
-          <span className="text-slate-400">Google Play Families Certified</span>
+          <span className="text-slate-400">Ambiente 100% Seguro para Crianças</span>
         </div>
       </footer>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
 import { InteractiveElement, Scene, Language } from '../types';
@@ -23,6 +23,12 @@ interface Particle {
   emoji: string;
 }
 
+interface ClueFeedback {
+  label: string;
+  narrativeNote: string;
+  icon?: string;
+}
+
 export const InteractiveScene: React.FC<InteractiveSceneProps> = ({
   scene,
   triggeredElementIds,
@@ -33,12 +39,14 @@ export const InteractiveScene: React.FC<InteractiveSceneProps> = ({
   const t = UI_TRANSLATIONS.pt;
   const [particles, setParticles] = useState<Particle[]>([]);
   const [activeAnimation, setActiveAnimation] = useState<string | null>(null);
-  const [lastNotification, setLastNotification] = useState<string | null>(null);
+  const [activeClueFeedback, setActiveClueFeedback] = useState<ClueFeedback | null>(null);
+  const notificationTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Clear animation states when scene changes
   useEffect(() => {
     setActiveAnimation(null);
-    setLastNotification(null);
+    if (notificationTimerRef.current) clearTimeout(notificationTimerRef.current);
+    setActiveClueFeedback(null);
   }, [scene.id]);
 
   const handleElementClick = (elem: InteractiveElement, e: React.MouseEvent) => {
@@ -110,10 +118,15 @@ export const InteractiveScene: React.FC<InteractiveSceneProps> = ({
     setTimeout(() => setActiveAnimation(null), 3000);
 
     if (elem.eventResult?.narrativeNote) {
-      setLastNotification(elem.eventResult.narrativeNote);
-      setTimeout(() => {
-        setLastNotification(null);
-      }, 5000);
+      if (notificationTimerRef.current) clearTimeout(notificationTimerRef.current);
+      setActiveClueFeedback({
+        label: elem.label,
+        narrativeNote: elem.eventResult.narrativeNote,
+        icon: elem.triggeredIcon || elem.icon || '🔍',
+      });
+      notificationTimerRef.current = setTimeout(() => {
+        setActiveClueFeedback(null);
+      }, 15000);
     }
 
     onTriggerElement(elem);
@@ -199,9 +212,9 @@ export const InteractiveScene: React.FC<InteractiveSceneProps> = ({
                 <motion.span 
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-1 px-2.5 py-0.5 bg-amber-600 text-white font-bold text-xs rounded-full shadow-md whitespace-nowrap"
+                  className="mt-1 px-3.5 py-1 bg-purple-900/95 text-yellow-300 font-black text-xs sm:text-sm rounded-full shadow-lg border-2 border-yellow-300 whitespace-nowrap"
                 >
-                  Toque na Fruta! 🍎
+                  🔍 {scene.interactiveElements.find(el => el.id === 'elem-fruta')?.label || 'Fruta Dourada'}
                 </motion.span>
               )}
             </motion.div>
@@ -336,14 +349,14 @@ export const InteractiveScene: React.FC<InteractiveSceneProps> = ({
             </AnimatePresence>
           </div>
 
-          {/* Hint Label */}
+          {/* Clue Label */}
           {showHints && (
             <motion.span 
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-1 px-3 py-1 bg-rose-600 text-white font-bold text-xs rounded-full shadow-lg flex items-center space-x-1 whitespace-nowrap border border-rose-300"
+              className="mt-1 px-3.5 py-1 bg-purple-900/95 text-yellow-300 font-black text-xs sm:text-sm rounded-full shadow-lg border-2 border-yellow-300 whitespace-nowrap"
             >
-              <span>🐲 Toque no Dragão!</span>
+              <span>🔍 {scene.interactiveElements.find(el => el.id === 'elem-dragao')?.label || 'Acordar o Dragão Pipoca!'}</span>
             </motion.span>
           )}
         </motion.div>
@@ -386,14 +399,14 @@ export const InteractiveScene: React.FC<InteractiveSceneProps> = ({
               )}
             </AnimatePresence>
 
-            {/* River Hint */}
+            {/* River Clue */}
             {showHints && (
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="px-3 py-1 bg-cyan-600/90 text-white font-bold text-xs rounded-full shadow-lg border border-cyan-300 flex items-center space-x-1"
+                className="px-3.5 py-1 bg-purple-900/95 text-yellow-300 font-black text-xs sm:text-sm rounded-full shadow-lg border-2 border-yellow-300 whitespace-nowrap"
               >
-                <span>🌊 {isRiverFlowing ? 'Rio em Correnteza!' : 'Toque no Rio Parado!'}</span>
+                <span>🔍 {scene.interactiveElements.find(el => el.id === 'elem-rio')?.label || 'Despertar o Rio!'}</span>
               </motion.div>
             )}
           </div>
@@ -443,9 +456,11 @@ export const InteractiveScene: React.FC<InteractiveSceneProps> = ({
               </motion.div>
 
               {showHints && (
-                <span className="px-2 py-0.5 bg-purple-700/90 text-white font-bold text-[11px] rounded-full shadow-md whitespace-nowrap mt-1">
-                  {elem.label}
-                </span>
+                <div className="flex flex-col items-center mt-2 z-30 pointer-events-none max-w-[220px] text-center drop-shadow-md">
+                  <span className="px-3.5 py-1 bg-purple-900/95 text-yellow-300 font-black text-xs sm:text-sm rounded-full shadow-lg border-2 border-yellow-300 whitespace-nowrap">
+                    🔍 {elem.label}
+                  </span>
+                </div>
               )}
             </div>
           );
@@ -465,25 +480,52 @@ export const InteractiveScene: React.FC<InteractiveSceneProps> = ({
         </motion.div>
       ))}
 
-      {/* EVENT NARRATIVE POPUP BANNER */}
+      {/* EVENT NARRATIVE POPUP BANNER - Clue & Story Message */}
       <AnimatePresence>
-        {lastNotification && (
+        {activeClueFeedback && (
           <motion.div
-            initial={{ opacity: 0, y: -30, scale: 0.9 }}
+            initial={{ opacity: 0, y: -30, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.9 }}
-            className="absolute top-4 left-4 right-4 sm:left-12 sm:right-12 z-40 bg-linear-to-r from-amber-500 via-orange-500 to-rose-500 text-white font-bold px-4 py-3 rounded-2xl shadow-2xl border-2 border-yellow-200 flex items-center justify-between"
+            exit={{ opacity: 0, y: -20, scale: 0.94 }}
+            className="absolute top-3 left-3 right-3 sm:top-5 sm:left-6 sm:right-6 z-40 bg-linear-to-r from-amber-600 via-orange-600 to-rose-600 text-white p-4 sm:p-5 rounded-3xl shadow-2xl border-4 border-yellow-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
           >
-            <div className="flex items-center space-x-3 text-sm sm:text-base">
-              <span className="text-2xl animate-bounce">✨</span>
-              <span>{lastNotification}</span>
+            <div className="flex items-start space-x-3.5 flex-1">
+              <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-3xl shrink-0 border border-white/40 shadow-inner">
+                {activeClueFeedback.icon || '🔍'}
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs font-black uppercase tracking-wider bg-yellow-300 text-amber-950 px-2.5 py-0.5 rounded-full shadow-xs">
+                    Pista: {activeClueFeedback.label}
+                  </span>
+                </div>
+                <p className="text-base sm:text-lg md:text-xl font-extrabold leading-snug text-yellow-50 drop-shadow-sm font-['Fredoka',sans-serif]">
+                  {activeClueFeedback.narrativeNote}
+                </p>
+              </div>
             </div>
-            <button
-              onClick={() => setLastNotification(null)}
-              className="px-2 py-1 bg-white/20 hover:bg-white/30 rounded-lg text-xs"
-            >
-              OK!
-            </button>
+            <div className="flex items-center space-x-2 self-end sm:self-center shrink-0">
+              <button
+                onClick={() => {
+                  soundManager.speakStoryText(activeClueFeedback.narrativeNote, undefined, undefined, undefined, 'pt-BR');
+                }}
+                id="btn-speak-clue-message"
+                title="Ouvir mensagem da pista"
+                className="p-2 bg-white/20 hover:bg-white/30 text-white rounded-2xl shadow-md transition-transform active:scale-95 cursor-pointer border border-white/40"
+              >
+                <Volume2 className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => {
+                  if (notificationTimerRef.current) clearTimeout(notificationTimerRef.current);
+                  setActiveClueFeedback(null);
+                }}
+                id="btn-close-notification"
+                className="px-4 py-2 bg-white text-amber-950 hover:bg-yellow-100 rounded-2xl text-xs sm:text-sm font-black shadow-md transition-transform active:scale-95 shrink-0 cursor-pointer border-2 border-amber-300"
+              >
+                Entendido! ✕
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

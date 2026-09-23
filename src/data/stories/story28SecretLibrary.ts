@@ -6,7 +6,7 @@ export const story28SecretLibrary: Book = {
   subtitle: 'Um mapa em código binário escondido na primeira edição de um clássico esquecido há duzentos anos',
   coverImage: 'secret-library-cover',
   coverEmoji: '📚🕯️',
-  ageGroup: '11-14',
+  ageGroup: '7-10',
   themeCategory: 'school',
   themeColor: 'from-amber-800 via-stone-700 to-amber-500',
   tagline: 'Decifre cifras em latim antigo, acione alavancas em estantes centenárias e salve o acervo histórico!',

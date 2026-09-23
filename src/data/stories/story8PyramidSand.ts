@@ -6,7 +6,7 @@ export const story8PyramidSand: Book = {
   subtitle: 'Uma expedição arqueológica através de câmaras secretas e mecanismos ancestrais',
   coverImage: 'pyramid-cover',
   coverEmoji: '🏜️',
-  ageGroup: '11-14',
+  ageGroup: '7-10',
   themeColor: 'from-amber-600 via-yellow-600 to-stone-700',
   tagline: 'Alinhe escaravelhos mecânicos, decifre relevos em hieróglifos e desvende a câmara do faraó!',
   totalChapters: 3,

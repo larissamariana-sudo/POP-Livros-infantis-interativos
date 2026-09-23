@@ -31,6 +31,16 @@ import { story29BikeChampionship } from './stories/story29BikeChampionship';
 import { story30WhaleLighthouse } from './stories/story30WhaleLighthouse';
 import { story31YoungBotanists } from './stories/story31YoungBotanists';
 import { story32TimePortals } from './stories/story32TimePortals';
+import { story33GlowingFootprints } from './stories/story33GlowingFootprints';
+import { story34BackwardClocks } from './stories/story34BackwardClocks';
+import { story35NightTrainWhistle } from './stories/story35NightTrainWhistle';
+import { story36VanishingIsland } from './stories/story36VanishingIsland';
+import { story37MusicBoxMystery } from './stories/story37MusicBoxMystery';
+import { story38FutureMirror } from './stories/story38FutureMirror';
+import { story39InvisiblePicnic } from './stories/story39InvisiblePicnic';
+import { story40StarryCodeMessage } from './stories/story40StarryCodeMessage';
+import { story41SchoolSecretChest } from './stories/story41SchoolSecretChest';
+import { story42DancingCookies } from './stories/story42DancingCookies';
 
 export const BOOKS_DATA: Book[] = [
   story1Dragon,
@@ -64,5 +74,15 @@ export const BOOKS_DATA: Book[] = [
   story29BikeChampionship,
   story30WhaleLighthouse,
   story31YoungBotanists,
-  story32TimePortals
+  story32TimePortals,
+  story33GlowingFootprints,
+  story34BackwardClocks,
+  story35NightTrainWhistle,
+  story36VanishingIsland,
+  story37MusicBoxMystery,
+  story38FutureMirror,
+  story39InvisiblePicnic,
+  story40StarryCodeMessage,
+  story41SchoolSecretChest,
+  story42DancingCookies
 ];

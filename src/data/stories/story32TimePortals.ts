@@ -6,7 +6,7 @@ export const story32TimePortals: Book = {
   subtitle: 'O acelerador quântico de bolso, projeções do futuro ecológico e as escolhas que moldam o destino da Terra',
   coverImage: 'time-portals-cover',
   coverEmoji: '⏳🌌',
-  ageGroup: '11-14',
+  ageGroup: '7-10',
   themeCategory: 'fantasy',
   themeColor: 'from-cyan-600 via-indigo-700 to-purple-800',
   tagline: 'Gire os prismas de refração temporal, visualize cidades verdes do futuro e faça a escolha que salva o planeta!',

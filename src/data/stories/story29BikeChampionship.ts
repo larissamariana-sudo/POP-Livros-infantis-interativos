@@ -6,7 +6,7 @@ export const story29BikeChampionship: Book = {
   subtitle: 'Pedais na terra batida, trocas de marcha na subida íngreme e o companheirismo na trilha mais desafiadora da serra',
   coverImage: 'bike-championship-cover',
   coverEmoji: '🚵‍♀️⛰️',
-  ageGroup: '11-14',
+  ageGroup: '7-10',
   themeCategory: 'sports',
   themeColor: 'from-amber-600 via-orange-500 to-emerald-600',
   tagline: 'Ajuste o câmbio traseiro, mantenha a cadência de respiração e descubra que cruzar a linha de chegada é vitória coletiva!',

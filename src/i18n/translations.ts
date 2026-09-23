@@ -49,6 +49,7 @@ export interface UiTranslations {
   hintsOff: string;
   secretsFound: (current: number, total: number) => string;
   themeNature: string;
+  themeMystery: string;
 }
 
 export const UI_TRANSLATIONS: Record<Language, UiTranslations> = {
@@ -80,6 +81,7 @@ export const UI_TRANSLATIONS: Record<Language, UiTranslations> = {
     themeMagic: 'Mágica & Fantasia',
     themeSchool: 'Escola & Amigos',
     themeNature: 'Natureza & Clima',
+    themeMystery: 'Mistério & Enigmas',
     charactersInStory: 'Personagens nesta história:',
     openBook: 'Abrir Livro e Brincar!',
     fontNormal: 'Letra Normal',
@@ -130,6 +132,7 @@ export const UI_TRANSLATIONS: Record<Language, UiTranslations> = {
     themeMagic: 'Magia y Fantasía',
     themeSchool: 'Escuela y Amigos',
     themeNature: 'Naturaleza y Clima',
+    themeMystery: 'Misterio y Enigmas',
     charactersInStory: 'Personajes en esta historia:',
     openBook: '¡Abrir Libro y Jugar!',
     fontNormal: 'Letra Normal',
@@ -180,6 +183,7 @@ export const UI_TRANSLATIONS: Record<Language, UiTranslations> = {
     themeMagic: 'Magic & Fantasy',
     themeSchool: 'School & Friends',
     themeNature: 'Nature & Climate',
+    themeMystery: 'Mystery & Riddles',
     charactersInStory: 'Characters in this story:',
     openBook: 'Open Book & Play!',
     fontNormal: 'Normal Font',
@@ -230,6 +234,7 @@ export const UI_TRANSLATIONS: Record<Language, UiTranslations> = {
     themeMagic: 'Magia e Fantasia',
     themeSchool: 'Scuola e Amici',
     themeNature: 'Natura e Clima',
+    themeMystery: 'Mistero ed Enigmi',
     charactersInStory: 'Personaggi in questa storia:',
     openBook: 'Apri il Libro e Gioca!',
     fontNormal: 'Carattere Normale',

@@ -6,7 +6,7 @@ export const story10ShadowCastle: Book = {
   subtitle: 'Um enigma arcano numa fortaleza suspensa onde a escuridão guarda segredos cintilantes',
   coverImage: 'castle-cover',
   coverEmoji: '🏰',
-  ageGroup: '11-14',
+  ageGroup: '7-10',
   themeColor: 'from-violet-900 via-indigo-900 to-slate-950',
   tagline: 'Desperte sinos de prata, ilumine prismas espectrais e una a magia da luz e da penumbra!',
   totalChapters: 3,

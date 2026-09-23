@@ -6,7 +6,7 @@ export const story30WhaleLighthouse: Book = {
   subtitle: 'O caderno do avô faroleiro, hidrofones submarinos e a passagem das maiores criaturas do planeta',
   coverImage: 'whale-lighthouse-cover',
   coverEmoji: '🐋🌊',
-  ageGroup: '11-14',
+  ageGroup: '7-10',
   themeCategory: 'nature',
   themeColor: 'from-blue-900 via-sky-800 to-teal-500',
   tagline: 'Conecte o microfone aquático, escute o canto milenar das baleias azuis e proteja as rotas oceânicas!',

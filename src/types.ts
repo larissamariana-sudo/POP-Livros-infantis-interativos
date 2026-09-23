@@ -1,4 +1,4 @@
-export type AgeGroup = '3-6' | '7-10' | '11-14';
+export type AgeGroup = '3-6' | '7-10';
 
 export type Language = 'pt' | 'es' | 'en' | 'it';
 
@@ -134,7 +134,7 @@ export interface Book {
   coverImage: string;
   coverEmoji: string;
   ageGroup: AgeGroup;
-  themeCategory?: 'family' | 'pets' | 'adventure' | 'sports' | 'nature' | 'fantasy' | 'school';
+  themeCategory?: 'family' | 'pets' | 'adventure' | 'sports' | 'nature' | 'fantasy' | 'school' | 'mystery';
   themeColor: string; // e.g., "from-amber-400 to-orange-500"
   tagline: string;
   totalChapters: number;
